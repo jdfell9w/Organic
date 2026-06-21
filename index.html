@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Technorganic Planet from Orbit - v1.5 2048 Texture Edition</title>
+<title>Technorganic Planet from Orbit - v1.6 City-Machine Texture Edition</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
 <style>
   html, body { margin:0; width:100%; height:100%; overflow:hidden; background:#02030a; font-family:Arial, Helvetica, sans-serif; }
-  .hud { position:fixed; left:12px; top:12px; z-index:10; max-width:465px; color:#eafaff; background:rgba(3,8,20,.72); border:1px solid rgba(120,240,255,.35); border-radius:14px; padding:12px 14px; line-height:1.35; box-shadow:0 0 24px rgba(0,220,255,.20); }
+  .hud { position:fixed; left:12px; top:12px; z-index:10; max-width:490px; color:#eafaff; background:rgba(3,8,20,.74); border:1px solid rgba(120,240,255,.35); border-radius:14px; padding:12px 14px; line-height:1.35; box-shadow:0 0 24px rgba(0,220,255,.20); }
   .hud h1 { font-size:18px; margin:0 0 6px; color:#8fffff; }
   .hud p { font-size:13px; margin:4px 0; color:#d7f4ff; }
   .hud b { color:#ffd76e; }
@@ -34,19 +34,19 @@ window.addEventListener('error', function(e){
 </head>
 <body>
 <div class="hud" id="hud">
-  <h1>Technorganic Planet from Orbit - v1.5</h1>
-  <p><b>Texture edition:</b> stable A-Frame primitives plus external 2048 x 1024 planet maps.</p>
+  <h1>Technorganic Planet from Orbit - v1.6</h1>
+  <p><b>City-machine texture blend:</b> denser urban lights, metallic plates, transit arteries, industrial haze, and machine-homeworld circuitry.</p>
   <p><b>Desktop:</b> WASD move, mouse drag look. <b>Quest:</b> Enter VR, controller/cursor select hotspots.</p>
-  <p id="biomeText">Click/tap a colored hotspot to inspect a technorganic biome.</p>
+  <p id="biomeText">Click/tap a hotspot to inspect one region of the city-machine world.</p>
   <button onclick="document.getElementById('hud').style.display='none'">Hide panel</button>
 </div>
 
 <a-scene background="color:#01020a" renderer="antialias:true; colorManagement:true" vr-mode-ui="enabled:true">
   <a-assets timeout="20000">
-    <img id="planetBase" src="assets/technorganic_planet_base_2048.jpg">
-    <img id="planetGlow" src="assets/technorganic_planet_emissive_2048.png">
-    <img id="planetClouds" src="assets/technorganic_clouds_2048.png">
-    <img id="planetAurora" src="assets/technorganic_aurora_lattice_2048.png">
+    <img id="planetBase" src="assets/technorganic_planet_base_citymachine_2048.jpg">
+    <img id="planetGlow" src="assets/technorganic_planet_emissive_citymachine_2048.png">
+    <img id="planetClouds" src="assets/technorganic_haze_citymachine_2048.png">
+    <img id="planetAurora" src="assets/technorganic_aurora_citymachine_2048.png">
   </a-assets>
 
   <a-entity id="rig" position="0 0 0">
@@ -57,29 +57,31 @@ window.addEventListener('error', function(e){
     <a-entity laser-controls="hand: left" raycaster="objects:.hotspot; far:120" line="color:#ffd76e; opacity:0.45"></a-entity>
   </a-entity>
 
-  <a-entity light="type:ambient; color:#9fdcff; intensity:0.62"></a-entity>
-  <a-entity light="type:directional; color:#fff0bb; intensity:1.95" position="5 7 6"></a-entity>
+  <a-entity light="type:ambient; color:#a7d6ff; intensity:0.60"></a-entity>
+  <a-entity light="type:directional; color:#ffe8bc; intensity:1.95" position="5 7 6"></a-entity>
   <a-entity light="type:point; color:#43eaff; intensity:1.45; distance:36" position="-4 2 4"></a-entity>
-  <a-entity light="type:point; color:#ff72d2; intensity:.95; distance:34" position="5 -1 2"></a-entity>
+  <a-entity light="type:point; color:#ffba62; intensity:0.9; distance:30" position="4 -1 2"></a-entity>
+
   <a-entity id="stars"></a-entity>
 
   <a-entity id="planetGroup" position="0 1.45 -4" animation="property:rotation; to:0 360 0; dur:125000; loop:true; easing:linear">
-    <a-sphere radius="2" segments-width="128" segments-height="64" material="src:#planetBase; color:#ffffff; metalness:0.28; roughness:0.56"></a-sphere>
-    <a-sphere radius="2.012" segments-width="128" segments-height="64" material="src:#planetGlow; transparent:true; opacity:0.82; color:#ffffff; emissive:#8fffff; emissiveIntensity:1.25; side:front; depthWrite:false"></a-sphere>
-    <a-sphere radius="2.045" segments-width="96" segments-height="48" material="src:#planetClouds; transparent:true; opacity:0.46; color:#ffffff; emissive:#9fdcff; emissiveIntensity:0.16; side:front; depthWrite:false" animation="property:rotation; to:0 -360 0; dur:160000; loop:true; easing:linear"></a-sphere>
-    <a-sphere radius="2.125" segments-width="96" segments-height="48" material="src:#planetAurora; transparent:true; opacity:0.68; color:#ffffff; emissive:#8fffff; emissiveIntensity:1.1; side:front; depthWrite:false" animation="property:rotation; to:0 360 0; dur:92000; loop:true; easing:linear"></a-sphere>
-    <a-sphere radius="2.18" segments-width="64" segments-height="32" material="color:#8fffff; emissive:#8fffff; emissiveIntensity:0.30; transparent:true; opacity:0.075; side:back"></a-sphere>
-    <a-sphere radius="2.23" segments-width="64" segments-height="32" material="color:#6bff9a; emissive:#6bff9a; emissiveIntensity:0.18; transparent:true; opacity:0.038; side:back"></a-sphere>
-    <a-torus radius="2.42" radius-tubular="0.01" rotation="20 80 0" material="color:#ffd76e; emissive:#ffd76e; emissiveIntensity:1.2; transparent:true; opacity:0.38"></a-torus>
-    <a-torus radius="2.62" radius-tubular="0.008" rotation="120 30 45" material="color:#ff72d2; emissive:#ff72d2; emissiveIntensity:1.2; transparent:true; opacity:0.30"></a-torus>
-    <a-torus radius="2.75" radius-tubular="0.006" rotation="48 150 95" material="color:#6bff9a; emissive:#6bff9a; emissiveIntensity:1.15; transparent:true; opacity:0.28"></a-torus>
+    <a-sphere radius="2" segments-width="128" segments-height="64" material="src:#planetBase; color:#ffffff; metalness:0.34; roughness:0.54"></a-sphere>
+    <a-sphere radius="2.012" segments-width="128" segments-height="64" material="src:#planetGlow; transparent:true; opacity:0.88; color:#ffffff; emissive:#8fffff; emissiveIntensity:1.28; side:front; depthWrite:false"></a-sphere>
+    <a-sphere radius="2.042" segments-width="96" segments-height="48" material="src:#planetClouds; transparent:true; opacity:0.40; color:#ffffff; emissive:#d7e5ef; emissiveIntensity:0.10; side:front; depthWrite:false" animation="property:rotation; to:0 -360 0; dur:150000; loop:true; easing:linear"></a-sphere>
+    <a-sphere radius="2.125" segments-width="96" segments-height="48" material="src:#planetAurora; transparent:true; opacity:0.70; color:#ffffff; emissive:#8fffff; emissiveIntensity:1.08; side:front; depthWrite:false" animation="property:rotation; to:0 360 0; dur:92000; loop:true; easing:linear"></a-sphere>
+    <a-sphere radius="2.18" segments-width="64" segments-height="32" material="color:#9fe8ff; emissive:#9fe8ff; emissiveIntensity:0.25; transparent:true; opacity:0.065; side:back"></a-sphere>
+    <a-sphere radius="2.23" segments-width="64" segments-height="32" material="color:#ffcf8a; emissive:#ffcf8a; emissiveIntensity:0.12; transparent:true; opacity:0.020; side:back"></a-sphere>
+
+    <a-torus radius="2.42" radius-tubular="0.01" rotation="20 80 0" material="color:#ffd76e; emissive:#ffd76e; emissiveIntensity:1.2; transparent:true; opacity:0.32"></a-torus>
+    <a-torus radius="2.62" radius-tubular="0.008" rotation="120 30 45" material="color:#ff72d2; emissive:#ff72d2; emissiveIntensity:1.1; transparent:true; opacity:0.22"></a-torus>
+    <a-torus radius="2.75" radius-tubular="0.006" rotation="48 150 95" material="color:#6bff9a; emissive:#6bff9a; emissiveIntensity:1.0; transparent:true; opacity:0.18"></a-torus>
 
     <a-sphere class="hotspot" id="h1" radius="0.09" position="-1.10 1.18 1.52" material="color:#ffd76e; emissive:#ffd76e; emissiveIntensity:2.5" animation="property:scale; dir:alternate; from:1 1 1; to:1.55 1.55 1.55; dur:900; loop:true"></a-sphere>
     <a-sphere class="hotspot" id="h2" radius="0.09" position="1.45 .18 1.30" material="color:#8fffff; emissive:#8fffff; emissiveIntensity:2.5" animation="property:scale; dir:alternate; from:1 1 1; to:1.55 1.55 1.55; dur:950; loop:true"></a-sphere>
     <a-sphere class="hotspot" id="h3" radius="0.09" position="-.25 -.78 1.78" material="color:#6bff9a; emissive:#6bff9a; emissiveIntensity:2.5" animation="property:scale; dir:alternate; from:1 1 1; to:1.55 1.55 1.55; dur:1000; loop:true"></a-sphere>
     <a-sphere class="hotspot" id="h4" radius="0.09" position=".48 1.62 .92" material="color:#ff72d2; emissive:#ff72d2; emissiveIntensity:2.5" animation="property:scale; dir:alternate; from:1 1 1; to:1.55 1.55 1.55; dur:1050; loop:true"></a-sphere>
     <a-sphere class="hotspot" id="h5" radius="0.09" position="-1.72 -.18 .86" material="color:#ffffff; emissive:#72d7ff; emissiveIntensity:2.5" animation="property:scale; dir:alternate; from:1 1 1; to:1.55 1.55 1.55; dur:1100; loop:true"></a-sphere>
-    <a-sphere class="hotspot" id="h6" radius="0.09" position="1.05 -1.30 1.20" material="color:#ff4b4b; emissive:#ff4b4b; emissiveIntensity:2.5" animation="property:scale; dir:alternate; from:1 1 1; to:1.55 1.55 1.55; dur:1150; loop:true"></a-sphere>
+    <a-sphere class="hotspot" id="h6" radius="0.09" position="1.05 -1.30 1.20" material="color:#ff9d5a; emissive:#ff9d5a; emissiveIntensity:2.5" animation="property:scale; dir:alternate; from:1 1 1; to:1.55 1.55 1.55; dur:1150; loop:true"></a-sphere>
   </a-entity>
 
   <a-entity id="orbitA" position="-3.3 2.6 -5.4" animation="property:rotation; to:0 360 0; dur:45000; loop:true; easing:linear">
@@ -87,47 +89,67 @@ window.addEventListener('error', function(e){
     <a-sphere radius="0.07" position="0.48 0 0" material="color:#eaffff; emissive:#8fffff; emissiveIntensity:1.8"></a-sphere>
     <a-torus radius=".22" radius-tubular=".006" rotation="90 0 0" material="color:#8fffff; emissive:#8fffff; emissiveIntensity:1.2; transparent:true; opacity:.55"></a-torus>
   </a-entity>
+
   <a-entity id="orbitB" position="3.5 2.25 -5.1" animation="property:rotation; to:0 -360 0; dur:58000; loop:true; easing:linear">
-    <a-cone radius-bottom="0.08" radius-top="0.0" height="0.72" rotation="0 0 -90" material="color:#25184a; emissive:#ff72d2; emissiveIntensity:0.9; metalness:0.4; roughness:0.35"></a-cone>
-    <a-sphere radius="0.06" position="-0.40 0 0" material="color:#fff0ff; emissive:#ff72d2; emissiveIntensity:1.8"></a-sphere>
-    <a-torus radius=".19" radius-tubular=".006" rotation="90 0 0" material="color:#ff72d2; emissive:#ff72d2; emissiveIntensity:1.2; transparent:true; opacity:.55"></a-torus>
+    <a-cone radius-bottom="0.08" radius-top="0.0" height="0.72" rotation="0 0 -90" material="color:#3e2a1c; emissive:#ffba62; emissiveIntensity:0.95; metalness:0.4; roughness:0.35"></a-cone>
+    <a-sphere radius="0.06" position="-0.40 0 0" material="color:#fff0df; emissive:#ffba62; emissiveIntensity:1.8"></a-sphere>
+    <a-torus radius=".19" radius-tubular=".006" rotation="90 0 0" material="color:#ffba62; emissive:#ffba62; emissiveIntensity:1.2; transparent:true; opacity:.55"></a-torus>
   </a-entity>
+
   <a-entity id="orbitC" position="0 4.55 -6.2" animation="property:rotation; to:360 0 360; dur:70000; loop:true; easing:linear">
     <a-octahedron radius="0.18" material="color:#ffd76e; emissive:#ffd76e; emissiveIntensity:1.35; metalness:.35; roughness:.25"></a-octahedron>
     <a-torus radius=".44" radius-tubular=".008" rotation="90 0 0" material="color:#8fffff; emissive:#8fffff; emissiveIntensity:1.2; transparent:true; opacity:.55"></a-torus>
-    <a-torus radius=".61" radius-tubular=".006" rotation="0 90 0" material="color:#6bff9a; emissive:#6bff9a; emissiveIntensity:1.1; transparent:true; opacity:.45"></a-torus>
+    <a-torus radius=".61" radius-tubular=".006" rotation="0 90 0" material="color:#6bff9a; emissive:#6bff9a; emissiveIntensity:1.0; transparent:true; opacity:.38"></a-torus>
   </a-entity>
 
   <a-entity id="infoPanel" position="0 4.1 -4">
-    <a-plane width="5.25" height="1.32" material="color:#07122a; transparent:true; opacity:0.82; side:double"></a-plane>
-    <a-plane width="5.42" height="1.48" position="0 0 -0.012" material="color:#8fffff; transparent:true; opacity:0.07; side:double"></a-plane>
-    <a-text id="panelTitle" value="Technorganic Planet: Texture Orbital Survey" align="center" width="4.85" position="0 .36 .02" color="#ffd76e"></a-text>
-    <a-text id="panelBody" value="External maps now carry the detail: metal forests, computing reefs, Energon rivers, memory mountains, clouds, and aurora circuitry." align="center" width="4.7" position="0 -.14 .02" color="#eafaff"></a-text>
+    <a-plane width="5.35" height="1.38" material="color:#07122a; transparent:true; opacity:0.82; side:double"></a-plane>
+    <a-plane width="5.52" height="1.54" position="0 0 -0.012" material="color:#8fffff; transparent:true; opacity:0.07; side:double"></a-plane>
+    <a-text id="panelTitle" value="City-Machine World v1.6" align="center" width="4.95" position="0 .36 .02" color="#ffd76e"></a-text>
+    <a-text id="panelBody" value="The surface is now a denser blend of world-city illumination and metallic machine-homeworld structure." align="center" width="4.8" position="0 -.14 .02" color="#eafaff"></a-text>
   </a-entity>
 </a-scene>
 
 <script>
 (function(){
   function mulberry32(a){return function(){var t=a+=0x6D2B79F5;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296;}}
-  var rand=mulberry32(1441);
+  var rand=mulberry32(26062026);
   function setBiome(title,text){
     document.getElementById('biomeText').innerHTML='<b>'+title+':</b> '+text;
     var titleEl=document.getElementById('panelTitle'); var bodyEl=document.getElementById('panelBody');
     if(titleEl) titleEl.setAttribute('value',title); if(bodyEl) bodyEl.setAttribute('value',text);
   }
   var data={
-    h1:['Metal Vein Forest','Colossal forests grow metallic bark, gold conductive veins, and fiber-optic roots that store ancestral memory.'],
-    h2:['Computing Reef','Processor-coral reefs pulse beneath shallow luminous oceans, carrying memory-lattice signals like schools of blue fire.'],
-    h3:['Energon Delta','Blue-white rivers branch across continents, feeding translucent animals that metabolize Energon into motion and song.'],
-    h4:['Memory Mountain','Machine-grown mountains archive extinct ecosystems; their cliffs flash with glyphs when auroras pass overhead.'],
-    h5:['Cyborg Pollinator Swarm','Drone-insects and jeweled biological pollinators carry seed-code between crystal flowers and metal-veined forests.'],
-    h6:['Technorganic Megafauna Reserve','Living-machine leviathans graze on luminous moss and translate planetary emotion through whale-like field songs.']
+    h1:['Upper Spire District','A gold-lit megacity band of high towers, transit lanes, and elevated machine districts.'],
+    h2:['Luminous Data Reef','A cool-blue sector where computational lattice blocks and glowing conduits mimic a technological ocean.'],
+    h3:['Energon Transit Delta','A branching web of blue-white and amber arterial lines connecting dense machine-habitation zones.'],
+    h4:['Memory Forge Plateau','A magenta-tinged industrial upland of foundries, archives, and giant machine-plate structures.'],
+    h5:['Technorganic Greenway','A rarer living corridor where biomechanical growth runs through the city-machine crust.'],
+    h6:['Industrial Core Basin','A hot orange sector of refineries, transport lanes, and cybernetic infrastructure descending into trench zones.']
   };
   function addStarfield(){
     var stars=document.getElementById('stars'); if(!stars) return;
-    for(var i=0;i<140;i++){var s=document.createElement('a-sphere');var x=(rand()-.5)*110;var y=(rand()-.5)*45+5;var z=-18-rand()*120;var r=.018+rand()*.05;var c=rand()>.88?'#ffd76e':(rand()>.54?'#8fffff':'#ffffff');s.setAttribute('position',x+' '+y+' '+z);s.setAttribute('radius',r);s.setAttribute('material','color:'+c+'; emissive:'+c+'; emissiveIntensity:1.25');stars.appendChild(s);}
+    for(var i=0;i<140;i++){
+      var s=document.createElement('a-sphere');
+      var x=(rand()-.5)*110; var y=(rand()-.5)*45+5; var z=-18-rand()*120; var r=.018+rand()*.05;
+      var c=rand()>.80?'#ffd76e':(rand()>.48?'#8fffff':'#ffffff');
+      s.setAttribute('position',x+' '+y+' '+z);
+      s.setAttribute('radius',r);
+      s.setAttribute('material','color:'+c+'; emissive:'+c+'; emissiveIntensity:1.25');
+      stars.appendChild(s);
+    }
   }
-  window.addEventListener('load',function(){addStarfield();Object.keys(data).forEach(function(id){var el=document.getElementById(id);if(el){el.addEventListener('click',function(){setBiome(data[id][0],data[id][1]);});el.addEventListener('mouseenter',function(){el.setAttribute('scale','1.8 1.8 1.8');});el.addEventListener('mouseleave',function(){el.setAttribute('scale','1 1 1');});}});});
+  window.addEventListener('load',function(){
+    addStarfield();
+    Object.keys(data).forEach(function(id){
+      var el=document.getElementById(id);
+      if(el){
+        el.addEventListener('click',function(){setBiome(data[id][0],data[id][1]);});
+        el.addEventListener('mouseenter',function(){el.setAttribute('scale','1.8 1.8 1.8');});
+        el.addEventListener('mouseleave',function(){el.setAttribute('scale','1 1 1');});
+      }
+    });
+  });
 })();
 </script>
 </body>
